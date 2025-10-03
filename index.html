@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Motasm Hasan — Portfolio</title>
+
+  <!-- SEO basis -->
+  <meta name="description" content="Portfolio van Motasm Hasan: projecten in C#, Laravel/PHP, HTML/CSS en JavaScript." />
+  <meta name="keywords" content="Motasm Hasan, portfolio, software developer, C#, Laravel, PHP, JavaScript" />
+  <meta name="author" content="Motasm Hasan" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Motasm Hasan — Portfolio" />
+  <meta property="og:description" content="Projecten, skills en contact." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://JOUW_GITHUB.github.io/" />
+  <meta property="og:image" content="https://JOUW_GITHUB.github.io/preview.png" />
+
+  <!-- Favicon (optioneel; voeg je eigen icoon toe) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ctext y='50%25' x='50%25' text-anchor='middle' dominant-baseline='central' font-size='48'%3EM%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    /* ---------- Design tokens ---------- */
+    :root {
+      --bg: #0b0c10;
+      --panel: #111218;
+      --text: #e9e9ef;
+      --muted: #b9b9c7;
+      --brand: #6ee7b7;         /* mint */
+      --brand-2: #60a5fa;       /* blue */
+      --accent: #f59e0b;        /* amber */
+      --border: #222434;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 14px;
+      --maxw: 1100px;
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+    }
+    [data-theme="light"]{
+      --bg: #f6f7fb;
+      --panel: #ffffff;
+      --text: #111827;
+      --muted: #4b5563;
+      --border: #e5e7eb;
+      --shadow: 0 10px 28px rgba(2,6,23,.08);
+    }
+
+    /* ---------- Reset ---------- */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: var(--font);
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(96,165,250,.12), transparent 60%),
+                  radial-gradient(900px 500px at 10% 0%, rgba(110,231,183,.12), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a{color: var(--brand-2); text-decoration: none}
+    a:hover{text-decoration: underline}
+    img{max-width:100%; display:block}
+
+    /* ---------- Layout ---------- */
+    .container{max-width: var(--maxw); margin: 0 auto; padding: 0 20px}
+    header.nav{
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(160%) blur(8px);
+      background: color-mix(in oklab, var(--bg), transparent 70%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner{
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
+    .brand-badge{
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      display:grid;place-items:center;color:#0b0c10;font-weight:900
+    }
+    .nav-links{display:flex; gap: 1rem; align-items:center}
+    .nav-links a{padding:.4rem .8rem; border-radius: 8px}
+    .nav-links a:hover{background: color-mix(in oklab, var(--panel), transparent 60%)}
+    .btn{
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.75rem 1rem; border-radius: 999px; border:1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--panel), #fff 2%), var(--panel));
+      box-shadow: var(--shadow);
+      color: var(--text); text-decoration:none; font-weight:600
+    }
+    .btn:hover{transform: translateY(-1px); transition: .2s}
+    .btn.ghost{background: transparent; box-shadow: none}
+    .btn.accent{border-color:transparent; background: linear-gradient(135deg, var(--brand-2), var(--brand)); color:#0b0c10}
+
+    /* ---------- Hero ---------- */
+    .hero{padding: 64px 0 30px}
+    .hero-grid{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items:center;
+    }
+    .card{
+      background: var(--panel); border:1px solid var(--border); border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .p24{padding: 24px}
+    .hero h1{font-size: clamp(32px, 5vw, 56px); line-height:1.1; margin:0 0 12px}
+    .hero p.lead{font-size: clamp(16px,2.2vw,20px); color: var(--muted); margin:0 0 18px}
+    .chip{
+      display:inline-flex; gap:.5rem; align-items:center;
+      padding:.35rem .7rem; border:1px dashed var(--border); border-radius:999px; font-size:.9rem;
+      background: color-mix(in oklab, var(--panel), transparent 30%)
+    }
+    .hero-actions{display:flex; gap:.8rem; flex-wrap:wrap; margin-top: 10px}
+    .hero-aside{
+      aspect-ratio: 1/1; border-radius: var(--radius); overflow:hidden; position:relative;
+      border:1px solid var(--border);
+      background:
+        radial-gradient(400px 200px at 20% 20%, rgba(96,165,250,.15), transparent 60%),
+        radial-gradient(400px 200px at 80% 80%, rgba(110,231,183,.15), transparent 60%),
+        linear-gradient(180deg, color-mix(in oklab, var(--panel), #fff 1%), var(--panel));
+      display:grid; place-items:center; text-align:center; padding: 18px;
+    }
+    .hero-aside .circle{
+      width: 140px; height: 140px; border-radius:50%;
+      border: 6px solid color-mix(in oklab, var(--brand-2), transparent 40%);
+      display:grid;place-items:center; font-weight:800; font-size: 38px;
+      background: color-mix(in oklab, var(--brand), transparent 75%);
+      text-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+    .hero-aside small{color: var(--muted)}
+
+    /* ---------- Sectie titel ---------- */
+    .section{padding: 18px 0 8px}
+    .section h2{font-size: clamp(22px, 2.4vw, 30px); margin: 22px 0 8px}
+    .section p.sub{color: var(--muted); margin-top: 0}
+
+    /* ---------- Skills ---------- */
+    .skills{
+      display:grid; gap: 12px;
+      grid-template-columns: repeat(2,1fr);
+    }
+    .skill-card{
+      border:1px solid var(--border); border-radius: var(--radius);
+      background: var(--panel); padding: 14px 16px;
+    }
+    .badges{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
+    .badge{
+      border:1px solid var(--border); border-radius: 999px; padding:.25rem .6rem;
+      background: color-mix(in oklab, var(--panel), transparent 40%); font-size:.9rem
+    }
+
+    /* ---------- Projecten preview ---------- */
+    .projects{
+      display:grid; gap: 16px;
+      grid-template-columns: repeat(3,1fr);
+    }
+    .project{
+      display:flex; flex-direction:column; overflow:hidden
+    }
+    .project .thumb{
+      aspect-ratio: 16/9; background: linear-gradient(135deg, #1f2937, #0f172a);
+      border-bottom:1px solid var(--border);
+      display:grid; place-items:center; color:#cbd5e1; font-weight:700; letter-spacing:.6px
+    }
+    .project .body{padding: 14px 16px}
+    .project h3{margin:0 0 6px; font-size: 1.05rem}
+    .tags{display:flex; gap:6px; flex-wrap:wrap; margin:.4rem 0 .6rem}
+    .tag{font-size:.85rem; border:1px solid var(--border); padding:.2rem .5rem; border-radius:6px; color: var(--muted)}
+    .project .links{margin-top:auto; display:flex; gap:10px; padding: 0 16px 14px}
+
+    /* ---------- Tijdlijn ---------- */
+    .timeline{position:relative; margin: 8px 0 0; padding-left: 18px}
+    .timeline::before{content:""; position:absolute; left: 6px; top: 6px; bottom: 6px; width:2px; background: var(--border)}
+    .tl-item{position:relative; margin: 0 0 14px}
+    .tl-item::marker{content:""}
+    .tl-dot{
+      position:absolute; left: -2px; top: 6px; width:12px; height:12px; border-radius:50%;
+      background: linear-gradient(135deg, var(--brand-2), var(--brand)); border:2px solid var(--panel)
+    }
+    .tl-card{
+      margin-left: 18px; border:1px solid var(--border); border-radius: 10px; padding:10px 12px; background: var(--panel)
+    }
+    .tl-title{margin:0 0 4px; font-weight:700}
+    .tl-meta{color: var(--muted); font-size:.9rem; margin:0 0 6px}
+
+    /* ---------- Contact ---------- */
+    .contact{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap: 16px;
+    }
+    form .row{display:grid; grid-template-columns: 1fr 1fr; gap: 10px}
+    input, textarea{
+      width: 100%; padding: .85rem .9rem; border-radius: 10px; border:1px solid var(--border);
+      background: color-mix(in oklab, var(--panel), #fff 2%); color: var(--text); font: inherit
+    }
+    textarea{min-height: 120px; resize: vertical}
+    .contact aside{
+      border:1px dashed var(--border); border-radius: var(--radius); padding: 14px 16px; background: color-mix(in oklab, var(--panel), transparent 40%)
+    }
+
+    /* ---------- Footer ---------- */
+    footer{
+      margin-top: 26px; border-top:1px solid var(--border);
+      background: color-mix(in oklab, var(--panel), transparent 40%);
+    }
+    .foot{
+      display:flex; gap: 10px; align-items:center; justify-content:space-between; flex-wrap:wrap; padding: 18px 0
+    }
+    .social{display:flex; gap: 10px}
+
+    /* ---------- Utilities ---------- */
+    .grid-2{display:grid; grid-template-columns: 1fr 1fr; gap: 16px}
+    .muted{color: var(--muted)}
+    .hidden{display:none}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:.9rem; border:1px solid var(--border); padding:.1rem .35rem; border-radius:6px; background: color-mix(in oklab, var(--panel), transparent 40%)}
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px){ .hero-grid{grid-template-columns: 1fr} .contact{grid-template-columns: 1fr} .projects{grid-template-columns: repeat(2,1fr)} }
+    @media (max-width: 640px){ .skills{grid-template-columns: 1fr} .projects{grid-template-columns: 1fr} .grid-2{grid-template-columns:1fr} .nav-links{display:none} }
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+
+  <!-- Navigatie -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <span class="brand-badge" aria-hidden="true">M</span>
+        <span>Motasm&nbsp;Hasan</span>
+      </div>
+      <nav class="nav-links" aria-label="Hoofdmenu">
+        <a href="#over">Over</a>
+        <a href="#skills">Skills</a>
+        <a href="#projecten">Projecten</a>
+        <a href="#tijdlijn">Tijdlijn</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <button id="themeBtn" class="btn ghost" aria-label="Wissel thema (licht/donker)"><span>🌓</span><span class="hidden sm:inline">Thema</span></button>
+        <a class="btn" href="https://github.com/JOUW_GITHUB" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="card p24">
+            <span class="chip">📍 Eindhoven · Student Software Development</span>
+            <h1>Ik bouw simpele, snelle en duidelijke software.</h1>
+            <p class="lead">
+              Tweedejaars student. Ervaring met <strong>C#</strong>, <strong>Laravel/PHP</strong>, <strong>HTML/CSS</strong> en <strong>JavaScript</strong>.
+              Ik hou van clean code en duidelijke UI.
+            </p>
+            <div class="hero-actions">
+              <a class="btn accent" href="#projecten">Bekijk projecten</a>
+              <a class="btn" href="#contact">Neem contact op</a>
+              <a class="btn ghost" href="cv.pdf" target="_blank" rel="noopener">Download CV</a>
+            </div>
+            <p class="muted" style="margin-top:.8rem">Tip: druk <span class="kbd">T</span> voor thema wisselen.</p>
+          </div>
+          <div class="hero-aside card">
+            <div>
+              <div class="circle">MH</div>
+              <p style="margin:.8rem 0 .2rem"><strong>Focus</strong>: Web &amp; API’s</p>
+              <small>Laravel · REST · Auth · SQL · WPF</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Over -->
+    <section id="over" class="section">
+      <div class="container grid-2">
+        <div class="card p24">
+          <h2>Over mij</h2>
+          <p class="sub">Kort en duidelijk.</p>
+          <p>
+            Ik ben Motasm Hasan. Ik leer snel, werk netjes en leg graag uit wat ik maak.
+            Ik bouw projecten die echt werken: van API’s met Laravel tot desktop apps in C#.
+          </p>
+          <p>
+            Ik vind het leuk om te werken met databasen, authenticatie en nette UI.
+            Mijn doel: projecten maken die je makkelijk kunt begrijpen én gebruiken.
+          </p>
+        </div>
+        <div class="card p24">
+          <h2>Snelle feiten</h2>
+          <ul style="margin:0; padding-left: 1.1rem">
+            <li>🏫 Opleiding: Software Development (MBO-4)</li>
+            <li>🧰 Stack: C#, Laravel/PHP, JS, HTML/CSS</li>
+            <li>🧪 Test: Postman, PHPUnit/NUnit (basis)</li>
+            <li>🔐 Auth: Laravel Jetstream/Sanctum</li>
+            <li>🗄️ SQL: Migrations, Seeds, Eloquent</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+      <div class="container">
+        <h2>Skills</h2>
+        <p class="sub">Technieken die ik gebruikte in projecten.</p>
+
+        <div class="skills">
+          <div class="skill-card">
+            <strong>Backend</strong>
+            <div class="badges">
+              <span class="badge">Laravel</span>
+              <span class="badge">PHP</span>
+              <span class="badge">REST API</span>
+              <span class="badge">Eloquent</span>
+              <span class="badge">Auth (Sanctum/Jetstream)</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <strong>Frontend</strong>
+            <div class="badges">
+              <span class="badge">HTML</span>
+              <span class="badge">CSS</span>
+              <span class="badge">JavaScript</span>
+              <span class="badge">Responsive UI</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <strong>Desktop / .NET</strong>
+            <div class="badges">
+              <span class="badge">C#</span>
+              <span class="badge">WPF/WinForms</span>
+              <span class="badge">MVVM</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <strong>Tools</strong>
+            <div class="badges">
+              <span class="badge">Git &amp; GitHub</span>
+              <span class="badge">Postman</span>
+              <span class="badge">VS / VS Code</span>
+              <span class="badge">Composer/NPM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projecten preview -->
+    <section id="projecten" class="section">
+      <div class="container">
+        <h2>Projecten (selectie)</h2>
+        <p class="sub">Klik door naar GitHub of bekijk de demo/screenshot.</p>
+
+        <div class="projects">
+          <!-- Project 1 -->
+          <article class="project card">
+            <div class="thumb">LARAVEL API</div>
+            <div class="body">
+              <h3>Tasks API (Laravel)</h3>
+              <p class="muted">CRUD API met auth (Sanctum), Eloquent relaties en tests.</p>
+              <div class="tags">
+                <span class="tag">Laravel</span><span class="tag">PHP</span><span class="tag">Sanctum</span><span class="tag">REST</span>
+              </div>
+            </div>
+            <div class="links">
+              <a class="btn" href="https://github.com/JOUW_GITHUB/tasks-api" target="_blank" rel="noopener">Code</a>
+              <a class="btn ghost" href="media/tasks-api-screens.png" target="_blank" rel="noopener">Screens</a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project card">
+            <div class="thumb">C# WPF</div>
+            <div class="body">
+              <h3>Note Manager (C# WPF)</h3>
+              <p class="muted">MVVM template, commands en local storage. Clean UI.</p>
+              <div class="tags">
+                <span class="tag">C#</span><span class="tag">WPF</span><span class="tag">MVVM</span>
+              </div>
+            </div>
+            <div class="links">
+              <a class="btn" href="https://github.com/JOUW_GITHUB/wpf-note-manager" target="_blank" rel="noopener">Code</a>
+              <a class="btn ghost" href="media/wpf-note-screens.png" target="_blank" rel="noopener">Screens</a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project card">
+            <div class="thumb">HTML / JS</div>
+            <div class="body">
+              <h3>Fitness Tracker (Front-end)</h3>
+              <p class="muted">Responsive pagina met charts en local storage.</p>
+              <div class="tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+              </div>
+            </div>
+            <div class="links">
+              <a class="btn" href="https://github.com/JOUW_GITHUB/fitness-tracker" target="_blank" rel="noopener">Code</a>
+              <a class="btn ghost" href="https://JOUW_GITHUB.github.io/fitness-tracker" target="_blank" rel="noopener">Live demo</a>
+            </div>
+          </article>
+        </div>
+
+        <div style="margin-top:12px">
+          <a class="btn" href="projects.html">Alle projecten</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tijdlijn -->
+    <section id="tijdlijn" class="section">
+      <div class="container">
+        <h2>Tijdlijn</h2>
+        <p class="sub">Wat ik tot nu toe heb gedaan.</p>
+
+        <div class="timeline">
+          <div class="tl-item">
+            <span class="tl-dot" aria-hidden="true"></span>
+            <div class="tl-card">
+              <p class="tl-title">Stage &amp; Schoolprojecten</p>
+              <p class="tl-meta">2025 — nu</p>
+              <p class="muted">Laravel API’s, C# desktop apps, en meerdere front-end projecten.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-dot" aria-hidden="true"></span>
+            <div class="tl-card">
+              <p class="tl-title">Start opleiding Software Development (MBO-4)</p>
+              <p class="tl-meta">2023 — 2025</p>
+              <p class="muted">Basis gelegd in programmeren, databases en samenwerken.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <div class="container contact">
+        <div class="card p24">
+          <h2>Contact</h2>
+          <p class="sub">Liever direct mailen? <a href="mailto:motasm@example.com">motasm@example.com</a></p>
+          <form id="contactForm">
+            <div class="row">
+              <div>
+                <label for="naam">Naam</label>
+                <input id="naam" name="naam" type="text" placeholder="Je naam" required />
+              </div>
+              <div>
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" placeholder="jij@example.com" required />
+              </div>
+            </div>
+            <div style="margin-top:10px">
+              <label for="bericht">Bericht</label>
+              <textarea id="bericht" name="bericht" placeholder="Schrijf je bericht..." required></textarea>
+            </div>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+              <button type="submit" class="btn accent">Stuur e-mail</button>
+              <a class="btn ghost" href="https://www.linkedin.com/in/JOUW_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+            <p id="formStatus" class="muted" aria-live="polite" style="margin-top:8px"></p>
+          </form>
+        </div>
+        <aside>
+          <strong>Privacy</strong>
+          <p class="muted" style="margin:.4rem 0 0">
+            Dit formulier opent je eigen e-mailprogramma. Ik sla niks op.
+          </p>
+          <div style="margin-top:.8rem">
+            <strong>Snelle links</strong>
+            <ul style="margin:.2rem 0 0; padding-left: 1.1rem">
+              <li><a href="https://github.com/JOUW_GITHUB" target="_blank" rel="noopener">GitHub profiel</a></li>
+              <li><a href="#projecten">Projecten</a></li>
+              <li><a href="cv.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div class="muted">© <span id="y"></span> Motasm Hasan</div>
+      <div class="social">
+        <a class="btn ghost" href="mailto:motasm@example.com" aria-label="E-mail">✉️ E-mail</a>
+        <a class="btn ghost" href="https://github.com/JOUW_GITHUB" target="_blank" rel="noopener" aria-label="GitHub">🐙 GitHub</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/JOUW_LINKEDIN" target="_blank" rel="noopener" aria-label="LinkedIn">🔗 LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Structured data (JSON-LD) voor betere SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Motasm Hasan",
+    "url":"https://JOUW_GITHUB.github.io/",
+    "sameAs":[
+      "https://github.com/JOUW_GITHUB",
+      "https://www.linkedin.com/in/JOUW_LINKEDIN"
+    ],
+    "jobTitle":"Software Developer (student)",
+    "knowsAbout":["C#","Laravel","PHP","JavaScript","HTML","CSS"],
+    "address":{"@type":"PostalAddress","addressLocality":"Eindhoven","addressCountry":"NL"}
+  }
+  </script>
+
+  <!-- Kleine JS voor thema en contact -->
+  <script>
+    // Jaar in footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Thema
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const saved = localStorage.getItem('theme');
+    if(saved) document.documentElement.setAttribute('data-theme', saved);
+    function toggleTheme(){
+      const now = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', now);
+      localStorage.setItem('theme', now);
+    }
+    themeBtn.addEventListener('click', toggleTheme);
+    // Toets T voor thema
+    window.addEventListener('keydown', (e)=>{ if(e.key.toLowerCase()==='t') toggleTheme(); });
+
+    // Contact → opent mailto met ingevulde tekst
+    const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('formStatus');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const naam = document.getElementById('naam').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const bericht = document.getElementById('bericht').value.trim();
+      const subject = encodeURIComponent("Portfolio contact — " + naam);
+      const body = encodeURIComponent(`Van: ${naam} <${email}>\n\n${bericht}\n\n---\nVerzonden via motasm-hasan portfolio site`);
+      window.location.href = `mailto:motasm@example.com?subject=${subject}&body=${body}`;
+      statusEl.textContent = "Je e-mail wordt geopend in je mailprogramma…";
+      setTimeout(()=> statusEl.textContent = "", 3000);
+    });
+  </script>
+</body>
+</html>
